@@ -10,11 +10,11 @@ import { Tracks } from '../models/tracks.js';
 const getItem = async (req, res) => {
   try {
     const { id } = matchedData(req);
-    const data = await Tracks.findByOne({ where: { id } });
+    const data = await Tracks.findOne({ where: { id } });
     res.send(data);
   } catch (err) {
     console.log(err);
-    handleHttpError(res, 'ERROR_GET_ITEM');
+    //handleHttpError(res, 'ERROR_GET_ITEM');
   }
 };
 
@@ -39,14 +39,15 @@ const getItems = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const createItem = async (req, res) => {
+const createItem = async (req, res, next) => {
   try {
     const body = matchedData(req);
     const data = await Tracks.create(body);
     res.send(data);
   } catch (err) {
     console.log(err);
-    handleHttpError(err, 'ERROR_CREATE_ITEM');
+
+    handleHttpError(err, 'ERROR_CREATE_ITEM', code);
   }
 };
 
@@ -58,8 +59,10 @@ const createItem = async (req, res) => {
 
 const updateItem = async (req, res) => {
   try {
-    const { id, ...body } = matchedData(req);
-    const data = await Tracks.update({ where: { id }, ...body });
+    const { id } = req.params;
+    const { ...body } = req.body;
+    const data = await Tracks.update(body, { where: { id } });
+
     res.send(data);
   } catch (err) {
     console.log(err);
@@ -78,7 +81,7 @@ const deleteItem = async (req, res) => {
     res.send(data);
   } catch (err) {
     console.log(err);
-    handleHttpError(err, 'ERROR_DELETE_ITEM');
+    handleHttpError(err, 'ERROR_DELETE_ITEM', code);
   }
 };
 

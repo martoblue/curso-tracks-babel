@@ -32,5 +32,5 @@ const Tracks = sequelize.define('tracks', {
   },
 });
 
-Tracks.sync();
+
 export { Tracks };

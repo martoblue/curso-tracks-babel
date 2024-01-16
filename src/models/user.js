@@ -23,5 +23,5 @@ const Users = sequelize.define('users', {
   },
 });
 
-Users.sync();
+
 export { Users };
