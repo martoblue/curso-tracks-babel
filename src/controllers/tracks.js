@@ -25,10 +25,8 @@ const getItem = async (req, res) => {
  */
 const getItems = async (req, res) => {
   try {
-    const data = await Tracks.findAll;
+    const data = await Tracks.findAll();
 
-    console.log(data.every((d) => d instanceof User)); // true
-    console.log('All data:', JSON.stringify(data, null, 2));
     res.send(data);
   } catch (err) {
     console.log(err);
