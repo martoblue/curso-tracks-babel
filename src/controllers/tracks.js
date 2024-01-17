@@ -13,8 +13,7 @@ const getItem = async (req, res) => {
     const data = await Tracks.findOne({ where: { id } });
     res.send(data);
   } catch (err) {
-    console.log(err);
-    //handleHttpError(res, 'ERROR_GET_ITEM');
+    handleHttpError(res, 'ERROR_GET_ITEM');
   }
 };
 
@@ -29,7 +28,6 @@ const getItems = async (req, res) => {
 
     res.send(data);
   } catch (err) {
-    console.log(err);
     handleHttpError(err, 'ERROR_GET_ALL_ITEM');
   }
 };
@@ -39,15 +37,13 @@ const getItems = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-const createItem = async (req, res, next) => {
+const createItem = async (req, res) => {
   try {
     const body = matchedData(req);
     const data = await Tracks.create(body);
     res.send(data);
   } catch (err) {
-    console.log(err);
-
-    handleHttpError(err, 'ERROR_CREATE_ITEM', code);
+    handleHttpError(err, 'ERROR_CREATE_ITEM');
   }
 };
 
@@ -65,7 +61,6 @@ const updateItem = async (req, res) => {
 
     res.send(data);
   } catch (err) {
-    console.log(err);
     handleHttpError(err, 'ERROR_UPDATE_ITEM');
   }
 };
@@ -80,7 +75,6 @@ const deleteItem = async (req, res) => {
     const data = await Tracks.destroy({ where: { id } });
     res.send(data);
   } catch (err) {
-    console.log(err);
     handleHttpError(err, 'ERROR_DELETE_ITEM', code);
   }
 };

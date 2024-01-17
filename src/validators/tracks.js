@@ -2,23 +2,17 @@ import { check } from 'express-validator';
 import { validationResults } from '../util/handleValidator.js';
 
 const validatorCreateItem = [
-  check('name').exists().notEmpty(),
-  check('album').exists().notEmpty(),
-  check('cover').exists().notEmpty(),
-  check('artist_name').exists().notEmpty(),
-  check('artist_nickname').exists().notEmpty(),
-  check('artisk_nationality').exists().notEmpty(),
-  check('duration_start').exists().notEmpty(),
-  check('duration_end').exists().notEmpty(),
-  check('mediaId').exists().notEmpty(),
+  check('name').notEmpty(),
+  check('album').notEmpty(),
+  check('cover').notEmpty(),
+  check('artist_name').notEmpty(),
+  check('artist_nickname').notEmpty(),
+  check('artisk_nationality').notEmpty(),
+  check('duration_start').notEmpty(),
+  check('duration_end').notEmpty(),
+  check('mediaId').notEmpty(),
   (req, res, next) => {
-    try {
-      validationResults(req, res, next);
-      return next(); // Si no hay errores, continua con la siguiente función de middleware
-    } catch (error) {
-      console.log(error);
-      return res.status(403).json({ error: error.errors });
-    }
+    validationResults(req, res, next);
   },
 ];
 
